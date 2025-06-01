@@ -1,5 +1,14 @@
 # AI Chatbot Deployment Guide
 
+## 🚀 Your Live Deployment
+
+**Live App**: [https://ai-chatbot-silk-three.vercel.app](https://ai-chatbot-silk-three.vercel.app)
+
+## Quick Access Links
+- **Admin Dashboard**: [https://ai-chatbot-silk-three.vercel.app/api/admin](https://ai-chatbot-silk-three.vercel.app/api/admin)
+- **Chat Interface**: [https://ai-chatbot-silk-three.vercel.app/api/chat-interface](https://ai-chatbot-silk-three.vercel.app/api/chat-interface)
+- **Widget Script**: `<script src="https://ai-chatbot-silk-three.vercel.app/api/widget"></script>`
+
 ## 🚀 Deploy to Vercel
 
 ### Prerequisites
@@ -37,30 +46,30 @@
    - Import your GitHub repository
 
 2. **Configure Environment Variables:**
-   In Vercel dashboard, add these environment variables:
+   In Vercel dashboard, go to Settings > Environment Variables and add:
    ```
-   API_KEY=your_gemini_api_key
-   DATABASE_URL=your_mongodb_connection_string
-   JWT_SECRET=your_jwt_secret_key
+   API_KEY=AIzaSyAdugnFf7oZV9DEnI-w3iwaYejHdZv2cR8
+   DATABASE_URL=mongodb+srv://rtalhaonline:NECwpGHg8RbfrZWf@cluster0.0lrnkl5.mongodb.net/ai-chatbot?retryWrites=true&w=majority&appName=Cluster0
+   JWT_SECRET=8d562bb1a7d0e1c64597a917167236771e335a3a3f3baa3bd22ee629a431363725c66a94c8efb0d97d6d19df50379d0bc69b5359450af15ad7de391bbf24171c
    ```
 
 3. **Deploy:**
    - Click "Deploy"
    - Wait for deployment to complete
-   - Your app will be available at: `https://your-app-name.vercel.app`
+   - Your app will be available at: `https://ai-chatbot-silk-three.vercel.app`
 
-### Step 3: Test Deployment
+### Step 3: Test Your Deployment
 
 1. **Admin Interface:**
-   - Visit: `https://your-app-name.vercel.app/api/admin`
+   - Visit: [https://ai-chatbot-silk-three.vercel.app/api/admin](https://ai-chatbot-silk-three.vercel.app/api/admin)
    - Crawl a website to test functionality
 
 2. **Chat Interface:**
-   - Visit: `https://your-app-name.vercel.app/api/chat-interface`
+   - Visit: [https://ai-chatbot-silk-three.vercel.app/api/chat-interface](https://ai-chatbot-silk-three.vercel.app/api/chat-interface)
    - Test chatbot responses
 
 3. **Widget Integration:**
-   - Embed script: `<script src="https://your-app-name.vercel.app/api/widget"></script>`
+   - Embed script: `<script src="https://ai-chatbot-silk-three.vercel.app/api/widget"></script>`
 
 ### Environment Variables Explained
 
@@ -96,4 +105,4 @@
 
 ---
 
-**Need Help?** Check the main README.md for detailed setup instructions.
+**Your app is ready!** Visit: [https://ai-chatbot-silk-three.vercel.app](https://ai-chatbot-silk-three.vercel.app)

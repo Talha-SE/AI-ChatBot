@@ -17,9 +17,9 @@ This project implements an AI chatbot that can be integrated into any website to
 
 ## 🚀 Live Demo
 
-- **Admin Dashboard**: [https://your-app.vercel.app/api/admin](https://your-app.vercel.app/api/admin)
-- **Chat Interface**: [https://your-app.vercel.app/api/chat-interface](https://your-app.vercel.app/api/chat-interface)
-- **API Documentation**: [https://your-app.vercel.app](https://your-app.vercel.app)
+- **API Documentation**: [https://ai-chatbot-silk-three.vercel.app](https://ai-chatbot-silk-three.vercel.app)
+- **Admin Dashboard**: [https://ai-chatbot-silk-three.vercel.app/api/admin](https://ai-chatbot-silk-three.vercel.app/api/admin)
+- **Chat Interface**: [https://ai-chatbot-silk-three.vercel.app/api/chat-interface](https://ai-chatbot-silk-three.vercel.app/api/chat-interface)
 
 ## 📁 Project Structure
 
@@ -72,21 +72,22 @@ npm run dev
 **Quick Deploy:**
 1. Click the button above
 2. Connect your GitHub account
-3. Add environment variables:
-   - `API_KEY` (Gemini API key)
-   - `DATABASE_URL` (MongoDB connection)
-   - `JWT_SECRET` (Random secret key)
+3. Add environment variables in Vercel dashboard:
+   - `API_KEY` (Your Gemini API key)
+   - `DATABASE_URL` (Your MongoDB connection string)
+   - `JWT_SECRET` (Your JWT secret key)
 4. Deploy!
 
 **Manual Deploy:** See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed instructions.
 
 ## 📚 Environment Variables
 
+Add these in Vercel dashboard under Settings > Environment Variables:
+
 ```bash
 API_KEY=your_gemini_api_key_here
 DATABASE_URL=your_mongodb_connection_string
 JWT_SECRET=your_random_secret_key
-PORT=3000
 ```
 
 ## 🎯 Integration
@@ -94,13 +95,13 @@ PORT=3000
 ### Embed Chatbot Widget
 Add this single line to any website:
 ```html
-<script src="https://your-app.vercel.app/api/widget"></script>
+<script src="https://ai-chatbot-silk-three.vercel.app/api/widget"></script>
 ```
 
 ### API Usage
 ```javascript
 // Send message to chatbot
-fetch('https://your-app.vercel.app/api/chat', {
+fetch('https://ai-chatbot-silk-three.vercel.app/api/chat', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({ message: 'Hello!' })
@@ -188,10 +189,10 @@ This project is licensed under the Creative Commons Attribution 4.0 Internationa
 
 ## 🆘 Support
 
+- **Live Demo**: [https://ai-chatbot-silk-three.vercel.app](https://ai-chatbot-silk-three.vercel.app)
 - **Documentation**: Check this README and DEPLOYMENT.md
 - **Issues**: Create GitHub issue for bugs
 - **Discussions**: Use GitHub discussions for questions
-- **Email**: contact@yourwebsite.com
 
 ## 🙏 Acknowledgments
 

@@ -17,6 +17,15 @@
     <script>
         // Ensure we're using the correct base URL in production
         window.API_BASE_URL = window.location.origin;
+        
+        // For Vercel deployment - ensure proper API endpoint detection
+        if (window.location.hostname.includes('vercel.app')) {
+            window.API_BASE_URL = window.location.origin;
+            console.log('Running on Vercel:', window.API_BASE_URL);
+        } else if (window.location.hostname === 'localhost') {
+            window.API_BASE_URL = window.location.origin;
+            console.log('Running locally:', window.API_BASE_URL);
+        }
     </script>
 </head>
 <body>
