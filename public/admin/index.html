@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - AI Chatbot</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta name="theme-color" content="#1e3a8a">
+    <meta name="description" content="AI Chatbot Admin Dashboard - Manage and configure your AI chatbot">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Admin Dashboard</h1>
+            <p>Manage your AI chatbot, crawl websites, and monitor performance</p>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="quick-stats" id="quick-stats">
+            <div class="stat-card">
+                <span class="stat-icon">🌐</span>
+                <span class="stat-number" id="stat-websites">0</span>
+                <span class="stat-label">Websites</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-icon">📄</span>
+                <span class="stat-number" id="stat-pages">0</span>
+                <span class="stat-label">Total Pages</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-icon">💬</span>
+                <span class="stat-number" id="stat-conversations">0</span>
+                <span class="stat-label">Conversations</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-icon">⚡</span>
+                <span class="stat-number" id="stat-active">Active</span>
+                <span class="stat-label">Status</span>
+            </div>
+        </div>
+
+        <!-- Dashboard Grid -->
+        <div class="dashboard-grid">
+            <!-- Crawl New Website Section -->
+            <div class="section crawl-section">
+                <div class="section-header">
+                    <h2>Crawl New Website</h2>
+                </div>
+                <form id="website-form">
+                    <div class="form-group">
+                        <label for="website-url" class="form-label">Website URL</label>
+                        <input 
+                            type="text" 
+                            id="website-url" 
+                            name="website-url" 
+                            class="form-input"
+                            required 
+                            placeholder="example.com, www.example.com, or https://example.com"
+                            autocomplete="url"
+                        >
+                        <div class="form-help">
+                            Supports formats: example.com, www.example.com, https://example.com
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="max-pages" class="form-label">Max Pages</label>
+                            <input 
+                                type="number" 
+                                id="max-pages" 
+                                name="max-pages" 
+                                class="form-input"
+                                min="1" 
+                                max="100" 
+                                value="10"
+                                title="Maximum number of pages to crawl (1-100)"
+                            >
+                        </div>
+                        <div class="form-group">
+                            <label for="max-depth" class="form-label">Max Depth</label>
+                            <input 
+                                type="number" 
+                                id="max-depth" 
+                                name="max-depth" 
+                                class="form-input"
+                                min="1" 
+                                max="5" 
+                                value="3"
+                                title="Maximum crawling depth (1-5)"
+                            >
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="include-external" name="include-external">
+                            <span class="checkmark"></span>
+                            Include External Links
+                            <span class="checkbox-help">Crawl links to other domains (limited to prevent infinite crawling)</span>
+                        </label>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <span>🚀</span>
+                            Crawl Website
+                        </button>
+                        <button type="button" class="btn btn-secondary" onclick="showAdvancedOptions()">
+                            <span>⚙️</span>
+                            Advanced
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Advanced Options (Initially Hidden) -->
+                <div id="advanced-options" class="advanced-options" style="display: none;">
+                    <h4>Advanced Crawling Options</h4>
+                    <div class="form-group">
+                        <label for="timeout" class="form-label">Request Timeout (seconds)</label>
+                        <input 
+                            type="number" 
+                            id="timeout" 
+                            name="timeout" 
+                            class="form-input"
+                            min="5" 
+                            max="30" 
+                            value="15"
+                            title="Timeout for each page request (5-30 seconds)"
+                        >
+                    </div>
+                </div>
+
+                <div id="status-message"></div>
+            </div>
+
+            <!-- Quick Actions Section -->
+            <div class="section">
+                <div class="section-header">
+                    <h2>Quick Actions</h2>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                    <a href="/chat" class="btn btn-primary" target="_blank">
+                        <span>💬</span>
+                        Test Chatbot
+                    </a>
+                    <button class="btn btn-secondary" onclick="refreshData()">
+                        <span>🔄</span>
+                        Refresh Data
+                    </button>
+                    <button class="btn btn-secondary" onclick="exportData()">
+                        <span>📥</span>
+                        Export Data
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Crawled Websites Section -->
+        <div class="section websites-section">
+            <div class="section-header">
+                <h2>Crawled Websites</h2>
+            </div>
+            <div id="websites-list">
+                <div class="loading">Loading websites...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div id="delete-modal" class="modal">
+        <div class="modal-content">
+            <h3>Confirm Delete</h3>
+            <p>Are you sure you want to delete this website and all its crawled data? This action cannot be undone.</p>
+            <div class="modal-buttons">
+                <button id="confirm-delete" class="btn btn-danger">
+                    <span>🗑️</span>
+                    Delete
+                </button>
+                <button id="cancel-delete" class="btn btn-secondary">
+                    <span>❌</span>
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

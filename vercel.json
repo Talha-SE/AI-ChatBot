@@ -1,0 +1,37 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "src/app.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/src/app.js"
+    },
+    {
+      "src": "/admin/(.*)",
+      "dest": "/src/app.js"
+    },
+    {
+      "src": "/chat/(.*)",
+      "dest": "/src/app.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/src/app.js"
+    }
+  ],
+  "env": {
+    "API_KEY": "@api-key",
+    "DATABASE_URL": "@database-url",
+    "JWT_SECRET": "@jwt-secret"
+  },
+  "functions": {
+    "src/app.js": {
+      "maxDuration": 30
+    }
+  }
+}

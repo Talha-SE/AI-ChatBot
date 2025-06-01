@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chatbot Integration Guide</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; line-height: 1.6; }
+        .code { background: #f5f5f5; padding: 15px; border-radius: 8px; font-family: 'Courier New', monospace; margin: 10px 0; }
+        .section { margin: 30px 0; padding: 20px; border: 1px solid #ddd; border-radius: 8px; }
+        h1 { color: #1e3a8a; }
+        h2 { color: #3b82f6; }
+        .highlight { background: #fef3c7; padding: 2px 6px; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <h1>🤖 AI Chatbot Integration Guide</h1>
+    
+    <div class="section">
+        <h2>📱 Embed Chatbot Widget</h2>
+        <p>Add this single line to any website to embed the chatbot:</p>
+        <div class="code">&lt;script src="<span class="highlight">YOUR_DOMAIN/api/widget</span>"&gt;&lt;/script&gt;</div>
+        
+        <p><strong>Example:</strong></p>
+        <div class="code">&lt;script src="https://your-chatbot-domain.com/api/widget"&gt;&lt;/script&gt;</div>
+    </div>
+
+    <div class="section">
+        <h2>⚙️ Admin Interface</h2>
+        <p>Access the admin panel to manage websites and view analytics:</p>
+        <div class="code">https://your-domain.com<span class="highlight">/api/admin</span></div>
+    </div>
+
+    <div class="section">
+        <h2>💬 Standalone Chat Interface</h2>
+        <p>Direct link to the chat interface for testing:</p>
+        <div class="code">https://your-domain.com<span class="highlight">/api/chat-interface</span></div>
+    </div>
+
+    <div class="section">
+        <h2>🔌 API Endpoints</h2>
+        <p><strong>Chat with the bot:</strong></p>
+        <div class="code">POST /api/chat<br>Body: { "message": "Hello!" }</div>
+        
+        <p><strong>Start new conversation:</strong></p>
+        <div class="code">POST /api/chat/new</div>
+        
+        <p><strong>Crawl new website (Admin):</strong></p>
+        <div class="code">POST /api/crawl<br>Body: { "url": "https://example.com", "maxPages": 10 }</div>
+        
+        <p><strong>Get chatbot status:</strong></p>
+        <div class="code">GET /api/config</div>
+    </div>
+
+    <div class="section">
+        <h2>🚀 Quick Start</h2>
+        <ol>
+            <li>Deploy your chatbot API</li>
+            <li>Access <code>/api/admin</code> to crawl your first website</li>
+            <li>Embed the widget using <code>/api/widget</code> script</li>
+            <li>Test the integration using <code>/api/chat-interface</code></li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <h2>📄 License & Attribution</h2>
+        <p>This AI Chatbot is licensed under the <strong>Creative Commons Attribution 4.0 International License (CC BY 4.0)</strong>.</p>
+        <p>When using this software, please provide attribution by including:</p>
+        <div class="code">AI Chatbot by [Your Name] - Licensed under CC BY 4.0<br>https://github.com/yourusername/ai-chatbot</div>
+        <p>© 2025 AI Chatbot Project. All rights reserved.</p>
+    </div>
+</body>
+</html>
