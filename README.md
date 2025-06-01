@@ -202,4 +202,4 @@ This project is licensed under the Creative Commons Attribution 4.0 Internationa
 
 ---
 
-**Made with ❤️ for the developer community**
+**Made with ❤️**
