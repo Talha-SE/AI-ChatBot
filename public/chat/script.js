@@ -91,7 +91,10 @@ function removeTypingIndicator() {
 function fetchResponse(userMessage) {
     showTypingIndicator();
 
-    fetch('/api/chat', {
+    // Use the base URL for API requests
+    const apiUrl = (window.API_BASE_URL || '') + '/api/chat';
+    
+    fetch(apiUrl, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -123,7 +126,10 @@ function startNewChat() {
         newChatButton.disabled = true;
         newChatButton.textContent = 'Starting...';
         
-        fetch('/api/chat/new', {
+        // Use the base URL for API requests
+        const apiUrl = (window.API_BASE_URL || '') + '/api/chat/new';
+        
+        fetch(apiUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -183,7 +189,10 @@ document.addEventListener('DOMContentLoaded', function() {
     addStatusIndicator();
     focusInput();
     
-    fetch('/api/chat/history')
+    // Use the base URL for API requests
+    const apiUrl = (window.API_BASE_URL || '') + '/api/chat/history';
+    
+    fetch(apiUrl)
         .then(response => response.json())
         .then(data => {
             if (data.messages && data.messages.length > 0) {

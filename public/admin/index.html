@@ -4,12 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard - AI Chatbot</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/admin/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <meta name="theme-color" content="#1e3a8a">
     <meta name="description" content="AI Chatbot Admin Dashboard - Manage and configure your AI chatbot">
+    <!-- Vercel deployment meta tags -->
+    <meta property="og:title" content="AI Chatbot Admin Dashboard">
+    <meta property="og:description" content="Manage your AI chatbot, crawl websites, and monitor performance">
+    <meta property="og:type" content="website">
+    <script>
+        // Ensure we're using the correct base URL in production
+        window.API_BASE_URL = window.location.origin;
+    </script>
 </head>
 <body>
     <div class="container">
@@ -144,7 +152,7 @@
                     <h2>Quick Actions</h2>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 12px;">
-                    <a href="/chat" class="btn btn-primary" target="_blank">
+                    <a href="/api/chat-interface" class="btn btn-primary" target="_blank">
                         <span>💬</span>
                         Test Chatbot
                     </a>
@@ -189,6 +197,6 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="/admin/script.js"></script>
 </body>
 </html>
