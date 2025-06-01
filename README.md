@@ -1,7 +1,7 @@
 # AI Chatbot Project
 
-[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/yourusername/ai-chatbot)
+[![License: Proprietary](https://img.shields.io/badge/License-Proprietary-red.svg)](LICENSE)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/Talha-SE/AI-ChatBot)
 
 This project implements an AI chatbot that can be integrated into any website to handle user queries. The chatbot utilizes the Gemini API for generating responses based on the content of the specified website.
 
@@ -43,7 +43,7 @@ ai-chatbot/
 
 ### 1. Clone & Install
 ```bash
-git clone https://github.com/yourusername/ai-chatbot.git
+git clone https://github.com/Talha-SE/AI-ChatBot.git
 cd ai-chatbot
 npm install
 ```
@@ -67,7 +67,7 @@ npm run dev
 
 ## 🌐 Deploy to Vercel
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/yourusername/ai-chatbot)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/Talha-SE/AI-ChatBot)
 
 **Quick Deploy:**
 1. Click the button above
@@ -175,23 +175,40 @@ fetch('https://your-app.vercel.app/api/chat', {
 
 ## 📄 License
 
-This project is licensed under the Creative Commons Attribution 4.0 International License (CC BY 4.0) - see the [LICENSE](LICENSE) file for details.
+This project is licensed under a **Commercial License** - see the [LICENSE](LICENSE) file for details.
 
-**You are free to:**
-- Share — copy and redistribute the material in any medium or format
-- Adapt — remix, transform, and build upon the material for any purpose, even commercially
+**All Rights Reserved**
 
-**Under the following terms:**
-- Attribution — You must give appropriate credit, provide a link to the license, and indicate if changes were made
+This software is the exclusive property of Talha-SE. 
 
-© 2025 AI Chatbot Project. Licensed under [CC BY 4.0](http://creativecommons.org/licenses/by/4.0/).
+**LICENSE OPTIONS:**
+
+**🆓 Personal/Evaluation License (FREE)**
+- ✅ Personal evaluation and testing only
+- ❌ No commercial use
+- ❌ No redistribution or sharing
+- ❌ No modification
+- 📧 Requires written permission
+
+**💼 Commercial License (PAID)**
+- ✅ Commercial use and deployment
+- ✅ Business integration
+- ✅ Support and updates included
+- ✅ Custom enterprise terms available
+- 💰 **Contact for pricing:** rtalha.work@gmail.com
+
+**Unauthorized use is strictly prohibited**
+
+**To obtain a license or pricing information, contact:** rtalha.work@gmail.com
+
+© 2025 Talha-SE. All rights reserved.
 
 ## 🆘 Support
 
 - **Documentation**: Check this README and DEPLOYMENT.md
-- **Issues**: Create GitHub issue for bugs
+- **Issues**: Create GitHub issue for bugs at https://github.com/Talha-SE/AI-ChatBot/issues
 - **Discussions**: Use GitHub discussions for questions
-- **Email**: contact@yourwebsite.com
+- **Email**: rtalha.work@gmail.com
 
 ## 🙏 Acknowledgments
 

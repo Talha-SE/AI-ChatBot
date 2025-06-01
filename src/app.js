@@ -52,8 +52,17 @@ app.get('/', (req, res) => {
         name: "AI Chatbot API",
         version: "1.0.0",
         description: "Complete AI Chatbot API with embedded interfaces",
+        author: "Talha-SE",
+        license: "Commercial License - All Rights Reserved",
+        repository: "https://github.com/Talha-SE/AI-ChatBot",
+        contact: "rtalha.work@gmail.com",
         deployment: "Vercel Serverless",
         status: "Active",
+        legal: {
+            license: "Proprietary Commercial License",
+            restrictions: "Commercial use requires paid license",
+            contact: "rtalha.work@gmail.com"
+        },
         endpoints: {
             chat: {
                 "/api/chat": "POST - Send message to chatbot",

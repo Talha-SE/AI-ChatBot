@@ -32,8 +32,8 @@
     "vercel",
     "nodejs"
   ],
-  "author": "Your Name",
-  "license": "CC-BY-4.0",
+  "author": "Talha-SE <rtalha.work@gmail.com>",
+  "license": "PROPRIETARY",
   "engines": {
     "node": "18.x"
   }
