@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chatbot - Link Tree</title>
+    <meta name="description" content="Access all AI Chatbot interfaces and tools from one place">
+    <meta name="theme-color" content="#1e3a8a">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', Helvetica, Arial, sans-serif;
+            min-height: 100vh;
+            background: #0f172a;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated Flowing Background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(45deg, #1e3a8a, #3b82f6, #6366f1, #8b5cf6, #a855f7);
+            background-size: 400% 400%;
+            animation: gradientFlow 15s ease infinite;
+        }
+
+        .floating-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .shape {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 20s infinite linear;
+        }
+
+        .shape:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            left: 10%;
+            animation-delay: 0s;
+            animation-duration: 25s;
+        }
+
+        .shape:nth-child(2) {
+            width: 120px;
+            height: 120px;
+            left: 20%;
+            animation-delay: 2s;
+            animation-duration: 30s;
+        }
+
+        .shape:nth-child(3) {
+            width: 60px;
+            height: 60px;
+            left: 70%;
+            animation-delay: 4s;
+            animation-duration: 20s;
+        }
+
+        .shape:nth-child(4) {
+            width: 100px;
+            height: 100px;
+            left: 80%;
+            animation-delay: 6s;
+            animation-duration: 35s;
+        }
+
+        .shape:nth-child(5) {
+            width: 150px;
+            height: 150px;
+            left: 50%;
+            animation-delay: 8s;
+            animation-duration: 40s;
+        }
+
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) scale(1);
+                opacity: 0;
+            }
+        }
+
+        /* Content Styling */
+        .container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #ffffff, #e2e8f0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 4px 20px rgba(255, 255, 255, 0.3);
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+
+        .header .emoji {
+            font-size: 4rem;
+            display: block;
+            margin-bottom: 20px;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        @keyframes titleGlow {
+            0% { text-shadow: 0 4px 20px rgba(255, 255, 255, 0.3); }
+            100% { text-shadow: 0 4px 30px rgba(255, 255, 255, 0.6); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Link Cards */
+        .links-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .link-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 24px;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .link-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.6s;
+        }
+
+        .link-card:hover::before {
+            left: 100%;
+        }
+
+        .link-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .link-content {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .link-icon {
+            font-size: 2.5rem;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .link-text {
+            flex: 1;
+        }
+
+        .link-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #ffffff;
+        }
+
+        .link-description {
+            font-size: 0.95rem;
+            opacity: 0.8;
+            line-height: 1.5;
+            color: #e2e8f0;
+        }
+
+        .link-arrow {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .link-card:hover .link-arrow {
+            transform: translateX(5px);
+        }
+
+        /* Special styling for different link types */
+        .link-card.admin {
+            background: rgba(239, 68, 68, 0.15);
+            border-color: rgba(239, 68, 68, 0.3);
+        }
+
+        .link-card.chat {
+            background: rgba(34, 197, 94, 0.15);
+            border-color: rgba(34, 197, 94, 0.3);
+        }
+
+        .link-card.widget {
+            background: rgba(168, 85, 247, 0.15);
+            border-color: rgba(168, 85, 247, 0.3);
+        }
+
+        .link-card.docs {
+            background: rgba(59, 130, 246, 0.15);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 50px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        .footer p {
+            margin-bottom: 10px;
+        }
+
+        .footer a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: #ffffff;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+
+            .header .emoji {
+                font-size: 3rem;
+            }
+
+            .container {
+                padding: 20px 15px;
+            }
+
+            .links-container {
+                max-width: 100%;
+            }
+
+            .link-content {
+                gap: 15px;
+            }
+
+            .link-icon {
+                font-size: 2rem;
+                min-width: 50px;
+            }
+
+            .link-title {
+                font-size: 1.2rem;
+            }
+
+            .link-description {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .link-card {
+                padding: 20px;
+            }
+
+            .link-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 12px;
+            }
+
+            .link-arrow {
+                display: none;
+            }
+        }
+
+        /* Accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="animated-bg">
+        <div class="floating-shapes">
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <span class="emoji">🤖</span>
+            <h1>AI Chatbot Portal</h1>
+            <p>Access all chatbot interfaces and management tools from one convenient location</p>
+        </div>
+
+        <div class="links-container">
+            <a href="/api/admin" class="link-card admin">
+                <div class="link-content">
+                    <div class="link-icon">🔧</div>
+                    <div class="link-text">
+                        <div class="link-title">Admin Dashboard</div>
+                        <div class="link-description">Manage websites, crawl new content, view analytics and configure your chatbot settings</div>
+                    </div>
+                    <div class="link-arrow">→</div>
+                </div>
+            </a>
+
+            <a href="/api/chat-interface" class="link-card chat">
+                <div class="link-content">
+                    <div class="link-icon">💬</div>
+                    <div class="link-text">
+                        <div class="link-title">Chat Interface</div>
+                        <div class="link-description">Test and interact with your AI chatbot in a standalone chat environment</div>
+                    </div>
+                    <div class="link-arrow">→</div>
+                </div>
+            </a>
+
+            <a href="/api/widget" class="link-card widget">
+                <div class="link-content">
+                    <div class="link-icon">📱</div>
+                    <div class="link-text">
+                        <div class="link-title">Widget Script</div>
+                        <div class="link-description">Embeddable chatbot widget script - add to any website with a simple script tag</div>
+                    </div>
+                    <div class="link-arrow">→</div>
+                </div>
+            </a>
+
+            <a href="/api/integration" class="link-card docs">
+                <div class="link-content">
+                    <div class="link-icon">📚</div>
+                    <div class="link-text">
+                        <div class="link-title">Integration Guide</div>
+                        <div class="link-description">Complete documentation on how to integrate and use the AI chatbot</div>
+                    </div>
+                    <div class="link-arrow">→</div>
+                </div>
+            </a>
+        </div>
+
+        <div class="footer">
+            <p>© 2025 AI Chatbot Project</p>
+            <p>Made with ❤️</p>
+            <p>Licensed under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a></p>
+        </div>
+    </div>
+</body>
+</html>

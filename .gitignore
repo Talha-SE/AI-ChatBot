@@ -70,7 +70,3 @@ build/
 
 # Vercel
 .vercel
-
-# Secrets and API keys
-*.key
-*.pem

@@ -48,6 +48,11 @@ router.get('/integration', (req, res) => {
     res.sendFile('integration.html', { root: 'public' });
 });
 
+// Route to serve link tree page
+router.get('/link-tree', (req, res) => {
+    res.sendFile('link-tree.html', { root: 'public' });
+});
+
 // Route to get chatbot configuration
 router.get('/config', async (req, res) => {
     try {
