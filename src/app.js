@@ -13,6 +13,19 @@ connectDB();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Verify critical environment variables
+if (!process.env.API_KEY) {
+    console.error('ERROR: Gemini API_KEY is not set. Please add it to your environment variables.');
+}
+
+if (!process.env.DATABASE_URL) {
+    console.error('ERROR: DATABASE_URL is not set. Please add it to your environment variables.');
+}
+
+if (!process.env.JWT_SECRET) {
+    console.warn('WARNING: JWT_SECRET is not set. Using a default value is insecure.');
+}
+
 // Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
