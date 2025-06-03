@@ -3,7 +3,7 @@ const MistralService = require('../services/mistralService');
 const Conversation = require('../models/conversation');
 const Website = require('../models/website');
 const TrainingData = require('../models/trainingData');
-const { formatChatResponse } = require('../utils/helpers');
+const { formatChatResponse, formatProductResponse } = require('../utils/helpers');
 
 class ChatController {
     constructor() {
@@ -54,10 +54,22 @@ class ChatController {
                 })));
             }
 
+            // Detect if this is a product query
+            const isProductQuery = this.detectProductQuery(userQuery);
+            
             try {
                 // Try using Gemini API first
-                const rawResponse = await this.geminiService.generateResponse(userQuery, combinedContext, conversationHistory);
-                const formattedResponse = formatChatResponse(rawResponse);
+                const rawResponse = await this.geminiService.generateResponse(
+                    userQuery, 
+                    combinedContext, 
+                    conversationHistory,
+                    isProductQuery
+                );
+                
+                // Format the response differently for product queries
+                const formattedResponse = isProductQuery 
+                    ? formatProductResponse(rawResponse) 
+                    : formatChatResponse(rawResponse);
                 
                 // Save conversation
                 await this.saveConversation(userId, userQuery, formattedResponse);
@@ -69,8 +81,16 @@ class ChatController {
                 try {
                     // Fallback to Mistral API if Gemini fails
                     console.log('Falling back to Mistral API');
-                    const mistralResponse = await this.mistralService.generateResponse(userQuery, combinedContext, conversationHistory);
-                    const formattedMistralResponse = formatChatResponse(mistralResponse);
+                    const mistralResponse = await this.mistralService.generateResponse(
+                        userQuery, 
+                        combinedContext, 
+                        conversationHistory,
+                        isProductQuery
+                    );
+                    
+                    const formattedMistralResponse = isProductQuery 
+                        ? formatProductResponse(mistralResponse) 
+                        : formatChatResponse(mistralResponse);
                     
                     // Save conversation
                     await this.saveConversation(userId, userQuery, formattedMistralResponse);
@@ -142,6 +162,18 @@ class ChatController {
         } catch (error) {
             console.error('Error saving conversation:', error);
         }
+    }
+
+    // Helper method to detect product queries
+    detectProductQuery(query) {
+        const productKeywords = [
+            'product', 'price', 'cost', 'buy', 'purchase', 'order', 'item', 
+            'pricing', 'how much', 'discount', 'sale', 'available', 'in stock',
+            'shipping', 'delivery', 'specifications', 'specs', 'features', 'model'
+        ];
+        
+        const lowercaseQuery = query.toLowerCase();
+        return productKeywords.some(keyword => lowercaseQuery.includes(keyword));
     }
 }
 

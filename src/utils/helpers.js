@@ -74,6 +74,79 @@ module.exports = {
         return formatted;
     },
 
+    formatProductResponse: (text) => {
+        // Specialized function for formatting product-related responses
+        if (!text) return '';
+        
+        // First apply basic formatting
+        let formatted = text
+            .replace(/\*{1,3}(.*?)\*{1,3}/g, '$1')  // Remove asterisks
+            .replace(/#{1,6}\s/g, '')               // Remove headers
+            .replace(/`{1,3}(.*?)`{1,3}/g, '$1')    // Remove code blocks
+            .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') // Keep link text only
+            .trim();
+    
+        // Identify and highlight key product details (price, category, etc.)
+        const priceMatch = formatted.match(/(\$\d+(\.\d{1,2})?|\d+(\.\d{1,2})?\s*(?:USD|dollars|€|£))/i);
+        const categoryMatch = formatted.match(/category:?\s*([^\.,:;\n]+)/i);
+        
+        // Keep sentences concise and product-focused
+        let sentences = formatted.split(/(?<=[.!?])\s+/);
+        sentences = sentences.filter(s => 
+            s.trim().length > 0 && 
+            !s.toLowerCase().includes('i don\'t have') && 
+            !s.toLowerCase().includes('i\'m not able') &&
+            !s.toLowerCase().includes('i cannot provide')
+        );
+        
+        if (sentences.length > 3) {
+            sentences = sentences.slice(0, 3); // Keep only first 3 sentences for brevity
+        }
+        
+        formatted = sentences.join(' ');
+        
+        // Format in a more structured way if we found price/category
+        if (priceMatch || categoryMatch) {
+            let structuredResponse = '';
+            
+            if (sentences.length > 0 && !sentences[0].toLowerCase().includes('price') && !sentences[0].toLowerCase().includes('category')) {
+                // Use first sentence as general description
+                structuredResponse = sentences[0] + ' ';
+            }
+            
+            // Add price if found
+            if (priceMatch) {
+                structuredResponse += `Price: ${priceMatch[0]}. `;
+            }
+            
+            // Add category if found
+            if (categoryMatch) {
+                structuredResponse += `Category: ${categoryMatch[1]}. `;
+            }
+            
+            // Add any other details
+            sentences.slice(1).forEach(sentence => {
+                if (!sentence.toLowerCase().includes('price') && 
+                    !sentence.toLowerCase().includes('category') && 
+                    sentence.trim().length > 0) {
+                    structuredResponse += sentence + ' ';
+                }
+            });
+            
+            formatted = structuredResponse.trim();
+        }
+        
+        // Ensure proper capitalization and punctuation
+        if (formatted.length > 0) {
+            formatted = formatted.charAt(0).toUpperCase() + formatted.slice(1);
+            if (!/[.!?]$/.test(formatted)) {
+                formatted += '.';
+            }
+        }
+        
+        return formatted;
+    },
+
     // New functions for file processing
     processTrainingFile: (fileBuffer, fileType) => {
         // Function to process uploaded training files
