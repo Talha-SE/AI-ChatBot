@@ -2,7 +2,7 @@ const GeminiService = require('../services/geminiService');
 const MistralService = require('../services/mistralService');
 const Conversation = require('../models/conversation');
 const Website = require('../models/website');
-const { formatChatResponse } = require('../utils/helpers');
+const { formatChatResponse, isProductQuery, formatProductResponse } = require('../utils/helpers');
 
 class ChatController {
     constructor() {
@@ -28,10 +28,26 @@ class ChatController {
             const websites = await Website.find({});
             const websiteData = websites.length > 0 ? websites[0].pages : null;
 
+            // Check if this is a product query
+            const productQuery = isProductQuery(userQuery);
+            
             try {
                 // Try using Gemini API first
                 const rawResponse = await this.geminiService.generateResponse(userQuery, websiteData, conversationHistory);
-                const formattedResponse = formatChatResponse(rawResponse);
+                
+                // Format response based on query type
+                let formattedResponse;
+                if (productQuery) {
+                    // For product queries, we need to determine if the product exists
+                    // This is a simplified check - in reality, you'd have more sophisticated detection
+                    const productExists = !rawResponse.toLowerCase().includes("couldn't find") && 
+                                          !rawResponse.toLowerCase().includes("not available") &&
+                                          !rawResponse.toLowerCase().includes("don't have");
+                    
+                    formattedResponse = formatProductResponse(rawResponse, productExists);
+                } else {
+                    formattedResponse = formatChatResponse(rawResponse);
+                }
                 
                 // Save conversation
                 await this.saveConversation(userId, userQuery, formattedResponse);
@@ -44,7 +60,19 @@ class ChatController {
                     // Fallback to Mistral API if Gemini fails
                     console.log('Falling back to Mistral API');
                     const mistralResponse = await this.mistralService.generateResponse(userQuery, websiteData, conversationHistory);
-                    const formattedMistralResponse = formatChatResponse(mistralResponse);
+                    
+                    // Format response based on query type
+                    let formattedMistralResponse;
+                    if (productQuery) {
+                        // For product queries, determine if the product exists
+                        const productExists = !mistralResponse.toLowerCase().includes("couldn't find") && 
+                                              !mistralResponse.toLowerCase().includes("not available") &&
+                                              !mistralResponse.toLowerCase().includes("don't have");
+                        
+                        formattedMistralResponse = formatProductResponse(mistralResponse, productExists);
+                    } else {
+                        formattedMistralResponse = formatChatResponse(mistralResponse);
+                    }
                     
                     // Save conversation
                     await this.saveConversation(userId, userQuery, formattedMistralResponse);

@@ -72,5 +72,62 @@ module.exports = {
         }
 
         return formatted;
+    },
+
+    formatProductResponse: (text, productExists = null) => {
+        // Function to format product-related responses
+        if (!text) return '';
+        
+        // Format the product response with better structure
+        let formatted = text;
+        
+        // If we know the product status, enhance the response
+        if (productExists === false) {
+            // Extract any product suggestions from the response
+            const suggestions = [];
+            const lines = text.split('\n');
+            
+            for (const line of lines) {
+                if (line.includes('recommend') || line.includes('suggest') || 
+                    line.includes('alternative') || line.includes('similar') ||
+                    line.match(/\b(try|check out)\b/i)) {
+                    suggestions.push(line.trim());
+                }
+            }
+            
+            // If suggestions were found, format them nicely
+            if (suggestions.length > 0) {
+                formatted = "I couldn't find that exact product. Here are some alternatives you might like:\n\n";
+                formatted += suggestions.join('\n');
+            } else {
+                formatted = "I couldn't find that exact product. " + text;
+            }
+        } else if (productExists === true) {
+            // For existing products, ensure details are formatted well
+            if (!text.includes('Price:') && !text.includes('price:')) {
+                // Try to extract price if mentioned
+                const priceMatch = text.match(/(\$\d+(\.\d{2})?|\d+(\.\d{2})?\s(USD|dollars))/i);
+                if (priceMatch) {
+                    const price = priceMatch[0];
+                    formatted = text.replace(price, `Price: ${price}`);
+                }
+            }
+        }
+        
+        return formatted;
+    },
+    
+    isProductQuery: (text) => {
+        // Function to detect if a query is product-related
+        if (!text) return false;
+        
+        const productIndicators = [
+            'product', 'buy', 'purchase', 'order', 'item',
+            'how much', 'price', 'cost', 'available', 'in stock',
+            'shipping', 'delivery', 'model', 'brand', 'version'
+        ];
+        
+        const lowercaseText = text.toLowerCase();
+        return productIndicators.some(indicator => lowercaseText.includes(indicator));
     }
 };

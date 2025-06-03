@@ -52,7 +52,14 @@ class MistralService {
         }
         
         prompt += `User Question: ${query}\n\n`;
-        prompt += `Please provide a helpful and accurate response based on the website content above. If the information is not available in the content, please say so.`;
+        
+        // Add product-specific instructions
+        prompt += `If the user is asking about a product:
+1. If the product is found in the website content, provide detailed information including price, features, and availability.
+2. If the product is NOT found, acknowledge that and suggest 2-3 similar or related products that ARE mentioned in the website content.
+3. Always format product information in a clear, structured way.
+
+Please provide a helpful and accurate response based on the website content above. If the information is not available in the content, please say so.`;
         
         return prompt;
     }
