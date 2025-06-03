@@ -2,10 +2,35 @@ const express = require('express');
 const router = express.Router();
 const ChatController = require('../controllers/chat');
 const CrawlerController = require('../controllers/crawler');
+const TrainingController = require('../controllers/training');
 const Website = require('../models/website'); // Assuming the model is in models/website.js
+const multer = require('multer');
+
+// Setup multer for file uploads
+const storage = multer.memoryStorage();
+const upload = multer({ 
+    storage: storage,
+    limits: { fileSize: 10 * 1024 * 1024 }, // 10MB limit
+    fileFilter: (req, file, cb) => {
+        // Accept only specific file types
+        const allowedTypes = [
+            'application/json', 
+            'text/plain', 
+            'text/csv',
+            'application/pdf'
+        ];
+        
+        if (allowedTypes.includes(file.mimetype)) {
+            cb(null, true);
+        } else {
+            cb(new Error('Invalid file type. Only JSON, CSV, TXT and PDF files are allowed.'));
+        }
+    }
+});
 
 const chatController = new ChatController();
 const crawlerController = new CrawlerController();
+const trainingController = new TrainingController();
 
 // Route for handling user queries
 router.post('/chat', chatController.handleUserQuery.bind(chatController));
@@ -15,6 +40,15 @@ router.post('/chat/new', chatController.startNewChat.bind(chatController));
 
 // Route for starting the website crawling process
 router.post('/crawl', crawlerController.startCrawling.bind(crawlerController));
+
+// New route for uploading training files
+router.post('/train/upload', upload.single('trainingFile'), trainingController.uploadTrainingFile.bind(trainingController));
+
+// Route to get all training data
+router.get('/train/data', trainingController.getTrainingData.bind(trainingController));
+
+// Route to delete specific training data
+router.delete('/train/data/:id', trainingController.deleteTrainingData.bind(trainingController));
 
 // Route to get all crawled websites
 router.get('/websites', async (req, res) => {
